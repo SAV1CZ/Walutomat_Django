@@ -29,7 +29,7 @@ class Person(models.Model):
 
 
 class Wallet(models.Model):
-    Owner = models.ForeignKey(Person , on_delete=models.PROTECT)
+    Owner = models.ForeignKey(Person, on_delete=models.PROTECT)
     Currency = models.ForeignKey(AvaiableCurrencies, on_delete=models.PROTECT)
     Balance = models.DecimalField(max_digits=10,decimal_places=2, default=0)
     Active = models.BooleanField(default=True)

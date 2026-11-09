@@ -32,7 +32,7 @@ class Command(BaseCommand):
                     raise Exception(f"{base_currency} not in api")
 
             currency_objects = {c.Code: c for c in AvaiableCurrencies.objects.all()}
-            existing_pairs = set(CrossRate.objects.values_list('Base_currency__Code', 'Quote_currency__Code'))
+            existing_pairs = set(CrossRate.objects.values_list('Base_Currency', 'Quote_Currency'))
             new_pairs_objects = []
 
             for pair in all_pairs_to_add:
@@ -46,13 +46,14 @@ class Command(BaseCommand):
                     if base_instance and quote_instance:    
                         new_pairs_objects.append(
                             CrossRate(
-                            Base_currency=base_instance,    
-                            Quote_currency=quote_instance,  
-                            Exchange_rate=pair["Exchange_rate"]))
+                            Base_Currency=base_instance,    
+                            Quote_Currency=quote_instance,  
+                            Exchange_Rate=pair["Exchange_Rate"]))
                         
             if new_pairs_objects:
                 CrossRate.objects.bulk_create(new_pairs_objects)
 
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f"{e}"))
+            import traceback
+            traceback.print_exc()
            
