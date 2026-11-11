@@ -9,14 +9,12 @@ class AvaiableCurrencies(models.Model):
     def __str__(self):
         return self.Code
 
-
 class LocationsCurrencies(models.Model):
     Location = models.CharField(max_length=30, unique=True)
     Currency_Code = models.ForeignKey(AvaiableCurrencies, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.Location
-
 
 class Person(models.Model):
     First_Name = models.CharField(max_length=20)
@@ -27,7 +25,6 @@ class Person(models.Model):
     def __str__(self):
         return f"{self.Email} {self.Location}"
 
-
 class Wallet(models.Model):
     Owner = models.ForeignKey(Person, on_delete=models.PROTECT)
     Currency = models.ForeignKey(AvaiableCurrencies, on_delete=models.PROTECT)
@@ -36,6 +33,7 @@ class Wallet(models.Model):
 
     def __str__(self):
         return f"Owner: {self.Owner} : {self.Balance}{self.Currency}"
+
 
 class CrossRate(models.Model):
     Base_Currency = models.ForeignKey(AvaiableCurrencies, on_delete=models.PROTECT, related_name="base_rates")
@@ -56,3 +54,5 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.Time}: {self.Amount}{self.Base_Currency}"
+
+    
