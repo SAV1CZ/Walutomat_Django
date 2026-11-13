@@ -1,5 +1,5 @@
-from django.core.management.base import BaseCommand
 from backend.models import AvaiableCurrencies, CrossRate
+from django.core.management.base import BaseCommand
 import requests
 
 class Command(BaseCommand):
@@ -53,7 +53,7 @@ class Command(BaseCommand):
             if new_pairs_objects:
                 CrossRate.objects.bulk_create(new_pairs_objects)
 
-        except Exception as e:
+        except Exception:
             import traceback
             traceback.print_exc()
            

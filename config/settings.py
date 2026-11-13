@@ -24,8 +24,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'backend',
-    ]
+    'drf_spectacular',
+    'backend',]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,16 +58,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 
-
-DB_PASSWORD = os.getenv("PASSWORD")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "walutomat_django",
-        "USER":"postgres",
-        "PASSWORD": f"{DB_PASSWORD}",
-        "HOST": "localhost",
-        "PORT": "5432",
+        'NAME': os.getenv("DB_NAME", "walutomat_django"),
+        'USER': os.getenv("DB_USER", "postgres"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': 'host.docker.internal',
+        'PORT': os.getenv("DB_PORT", "5432"),
     }
 }
 
@@ -110,5 +108,27 @@ STATIC_URL = 'static/'
 MAILERS = {
     'default': {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+    },
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',)
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Walutomat API',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SECURITY': [{'BearerAuth': []}],
+    'SECURITY_DEFINITIONS': {
+        'BearerAuth': {
+            'type': 'http',
+            'scheme': 'bearer',
+            'bearerFormat': 'JWT',
+        }
     },
 }

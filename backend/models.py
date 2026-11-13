@@ -1,4 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
+
 
 
 
@@ -17,6 +19,7 @@ class LocationsCurrencies(models.Model):
         return self.Location
 
 class Person(models.Model):
+    User_Obj = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     First_Name = models.CharField(max_length=20)
     Last_Name = models.CharField(max_length=20)
     Email = models.EmailField(unique=True, null=False)
@@ -28,7 +31,7 @@ class Person(models.Model):
 class Wallet(models.Model):
     Owner = models.ForeignKey(Person, on_delete=models.PROTECT)
     Currency = models.ForeignKey(AvaiableCurrencies, on_delete=models.PROTECT)
-    Balance = models.DecimalField(max_digits=10,decimal_places=2, default=0)
+    Balance = models.DecimalField(max_digits=12,decimal_places=2, default=0)
     Active = models.BooleanField(default=True)
 
     def __str__(self):

@@ -1,5 +1,6 @@
+from backend.models import AvaiableCurrencies, LocationsCurrencies
 from django.core.management.base import BaseCommand
-from backend.models import AvaiableCurrencies, Person, Wallet, LocationsCurrencies
+
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
@@ -22,7 +23,7 @@ class Command(BaseCommand):
                     new_locations_objects.append(LocationsCurrencies(Location=name, Currency_Code=currency_instance))
             if new_locations_objects:
                 LocationsCurrencies.objects.bulk_create(new_locations_objects)        
-        except Exception as e:
+        except Exception:
             import traceback
             traceback.print_exc()
 
