@@ -27,4 +27,4 @@ Funkcjonalności
 
 Inicjalizacja
 
-***Należy wykorzystać komendy init_currencies oraz init_locations aby zarejestrować własnego użytkownika w endponcie.
+***Należy wykorzystać komendy init_currencies oraz init_locations aby mieć możliwość rejestracji własnego użytkownika w endponcie.
