@@ -25,4 +25,6 @@ Funkcjonalności
 *Pobieranie kursów walut z zewnętrznego API,
 *Automatyczny mechanizm pobierania marży walutomatu. 
 
+Inicjalizacja
 
+***Należy wykorzystać komendy init_currencies oraz init_locations aby zarejestrować własnego użytkownika w endponcie.
